@@ -147,9 +147,11 @@
     <!-- Sección sobre el proyecto -->
     <!-- Encabezado con nombre del proyecto -->
     <div id="about" class="card">
-      <h1 class="card__title">Registro</h1>
-      <p class="card__text">De clientes</p>
-    </div>
+  <h1 class="card__title">Registro</h1>
+  <p class="card__text">De clientes</p>
+  <button onclick="window.location.href='ver_clientes.php'" class="button">Ver clientes registrados</button>
+</div>
+
     <!-- Información sobre el proyecto -->
     <section>
       <h1 class="title"> <span class="date">Termino: x de febrero 20XX</span></h1>
@@ -187,9 +189,13 @@
           <label for="fecha_n">Fecha de Nacimiento:</label>
           <input class="form__input" type="date" name="fecha_n" id="fecha_n" required>
         </div>
+        <center>
+        <hr>
+        <h1> </h1>
         <div>
           <input type="submit" value="Guardar" class="button">
         </div>
+        </center>
       </form>
 
 

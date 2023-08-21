@@ -19,7 +19,7 @@ if (!$conn) {
     $sql = "INSERT INTO libros (titulo, autor,  cantidad) VALUES ('$titulo', '$autor',  $cantidad)";
 
     if (mysqli_query($conn, $sql)) {
-        header("Location: RegistrarP.html");
+        header("Location: RegistrarC.php");
     } else {
         echo "Error: " . mysqli_error($conn);
     }
