@@ -75,7 +75,7 @@
                 </button>
             </li>
             <li class="sidebar__item">
-                <button class="sidebar__button sidebar__button--active " onclick="window.location.href='RegistrarC.php'">
+                <button class="sidebar__button  " onclick="window.location.href='RegistrarC.php'">
                 <i class='bx bx-user-plus sidebar__icon'></i>
                     <span class="sidebar__text">Registrar Cliente</span>
                 </button>
@@ -87,7 +87,7 @@
                 </button>
             </li>
             <li class="sidebar__item">
-                <button class="sidebar__button" onclick="window.location.href='factura.php'">
+                <button class="sidebar__button sidebar__button--active" onclick="window.location.href='factura.php'">
                     <i class='bx bx-mail-send sidebar__icon'></i>
                     <span class="sidebar__text">Facturacion</span>
                 </button>
@@ -202,61 +202,47 @@ $result = $conn->query($sql);
 
 <table>
    
-    <?php
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            echo "<tr>";
-            echo "<td>" . $row["id"] . "</td>";
-            echo "<td>" . $row["nombre"] . "</td>";
-            echo "<td>" . $row["libro_titulo"] . "</td>";
-            echo "<td>" . $row["fecha_prestamo"] . "</td>";
-            echo "<td>";
-            if ($row["estado"] == 1) {
-                echo "Devuelto";
-            } else {
-                echo "Prestado";
-            }
-            echo "</td>";
-            echo "<td>";
-            if ($row["estado"] == 0) {
-                echo "<button class='action-button' onclick='markReturned(" . $row['id'] . ")'>Prestado</button>";
-            }
-            echo "</td>";
-            echo "</tr>";
+<?php
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        echo "<tr>";
+        echo "<td>" . $row["id"] . "</td>";
+        echo "<td>" . $row["nombre"] . "</td>";
+        echo "<td>" . $row["libro_titulo"] . "</td>";
+        echo "<td>" . $row["fecha_prestamo"] . "</td>";
+        echo "<td>";
+        if ($row["estado"] == 1) {
+            echo "Devuelto";
+        } else {
+            echo "Prestado";
         }
-    } else {
-        echo "<tr><td colspan='6'>No hay libros prestados.</td></tr>";
+        echo "</td>";
+        echo "<td>";
+        if ($row["estado"] == 0) {
+            echo "<button class='action-button' onclick='markReturned(" . $row['id'] . ")'>Prestado</button>";
+        } else {
+            echo "<button class='action-button' onclick='redirectToUpdatedevuleto(" . $row['id'] . ")'>Devuelto</button>";
+        }
+        echo "</td>";
+        echo "</tr>";
     }
-    ?>
+} else {
+    echo "<tr><td colspan='6'>No hay libros prestados.</td></tr>";
+}
+?>
+
+<script>
+    function markReturned(prestamoId) {
+        // Redirigir a updatedevuleto.php
+        window.location.href = 'updatedevuleto.php?prestamo_id=' + prestamoId;
+    }
+
+    function redirectToUpdatedevuleto(prestamoId) {
+        // Redirigir a updatedevuleto.php con un query parameter
+        window.location.href = 'updatedevuleto.php?prestamo_id=' + prestamoId;
+    }
+</script>
 </table>
-
-<!-- ... Código HTML posterior ... -->
-
-
-
-
-
-
-
-            <!-- TABLA DE CONTENIDO -->
-
-            <li>
-                <h1>
-            <li>
-                <h1>
-
-                </h1>
-            </li>
-            </h1>
-            </li>
-            <!-- Keywords -->
-
-
-
-
-            <!-- MySQL card -->
-
-            <!-- Sección descargas -->
 
     </main>
     <!-- Pie de página -->

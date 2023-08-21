@@ -16,7 +16,7 @@ if (isset($_GET['prestamo_id'])) {
     $sql_update = "UPDATE prestamos SET estado = 1 WHERE id = $prestamoId";
 
     if ($conn->query($sql_update) === TRUE) {
-        echo "Estado actualizado correctamente.";
+        header("Location: ver_libros_prestados.php");
     } else {
         echo "Error al actualizar el estado: " . $conn->error;
     }
