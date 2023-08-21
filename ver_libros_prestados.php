@@ -75,7 +75,7 @@
                 </button>
             </li>
             <li class="sidebar__item">
-                <button class="sidebar__button  " onclick="window.location.href='RegistrarC.php'">
+                <button class="sidebar__button sidebar__button--active " onclick="window.location.href='RegistrarC.php'">
                 <i class='bx bx-user-plus sidebar__icon'></i>
                     <span class="sidebar__text">Registrar Cliente</span>
                 </button>
@@ -87,7 +87,7 @@
                 </button>
             </li>
             <li class="sidebar__item">
-                <button class="sidebar__button sidebar__button--active" onclick="window.location.href='factura.php'">
+                <button class="sidebar__button" onclick="window.location.href='factura.php'">
                     <i class='bx bx-mail-send sidebar__icon'></i>
                     <span class="sidebar__text">Facturacion</span>
                 </button>
@@ -152,8 +152,6 @@
         <div id="about" class="card">
             <h1 class="card__title">INVENTARIO</h1>
             <p class="card__text">Visualiza los Materiales</p>
-            <button onclick="window.location.href='ver_libros_prestados.php'" class="button">Ver Libros Prestados </button>
-
         </div>
         <!-- Información sobre el proyecto -->
         <section>
@@ -162,7 +160,7 @@
 <!-- Barra de búsqueda -->
 <div class="search-container">
     <form method="GET" action="">
-        <input type="text" name="search_client" id="search-client-input" placeholder="Buscar cliente...">
+        <input type="text" name="search" id="search-input" placeholder="Buscar...">
         <button type="submit" id="search-client-button">
             <i class="fas fa-search"></i>
         </button>
@@ -175,7 +173,15 @@
 </li>
 
             <!-- TABLA DE CONTENIDO -->
-            <?php
+            <table>
+        <tr>
+            <th>ID</th>
+            <th>Nombre Cliente</th>
+            <th>Título del Libro</th>
+            <th>Fecha de Préstamo</th>
+            <th>Acciones</th>
+        </tr>
+         <?php
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -186,45 +192,47 @@ if ($conn->connect_error) {
     die("La conexión falló: " . $conn->connect_error);
 }
 
-// Verificar si se ha enviado una consulta de búsqueda de clientes
-if (isset($_GET['search_client'])) {
-    $search_client = $_GET['search_client'];
-    $sql_client = "SELECT * FROM clientes WHERE nombre LIKE '%$search_client%' LIMIT 3";
-    $result_client = $conn->query($sql_client);
-    
-    if ($result_client->num_rows > 0) {
-        echo "<table class='client-table'>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Seleccionar</th>
-                </tr>";
-        while ($row_client = $result_client->fetch_assoc()) {
-            $id_client = $row_client["id"];
-            $nombre_client = $row_client["nombre"];
-            $apellido_client = $row_client["apellido"];
-            
-            echo "<tr>
-                    <td>$id_client</td>
-                    <td>$nombre_client</td>
-                    <td>$apellido_client</td>
-                    <td>
-                        <form method='POST' action='prestar_libro.php'>
-                            <input type='hidden' name='selected_client' value='$id_client'>
-                            <button type='submit' name='select_client'>Seleccionar</button>
-                        </form>
-                    </td>
-                </tr>";
-        }
-        echo "</table>";
-    } else {
-        echo "No se encontraron clientes.";
-    }
-}
+$sql = "SELECT prestamos.id, clientes.nombre, prestamos.libro_titulo, prestamos.fecha_prestamo, prestamos.estado FROM prestamos
+        INNER JOIN clientes ON prestamos.cliente_id = clientes.id";
+$result = $conn->query($sql);
 
-$conn->close();
 ?>
+
+<!-- ... Código HTML previo ... -->
+
+<table>
+   
+    <?php
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<td>" . $row["id"] . "</td>";
+            echo "<td>" . $row["nombre"] . "</td>";
+            echo "<td>" . $row["libro_titulo"] . "</td>";
+            echo "<td>" . $row["fecha_prestamo"] . "</td>";
+            echo "<td>";
+            if ($row["estado"] == 1) {
+                echo "Devuelto";
+            } else {
+                echo "Prestado";
+            }
+            echo "</td>";
+            echo "<td>";
+            if ($row["estado"] == 0) {
+                echo "<button class='action-button' onclick='markReturned(" . $row['id'] . ")'>Prestado</button>";
+            }
+            echo "</td>";
+            echo "</tr>";
+        }
+    } else {
+        echo "<tr><td colspan='6'>No hay libros prestados.</td></tr>";
+    }
+    ?>
+</table>
+
+<!-- ... Código HTML posterior ... -->
+
+
 
 
 

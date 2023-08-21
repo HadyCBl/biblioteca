@@ -152,79 +152,71 @@
         <div id="about" class="card">
             <h1 class="card__title">INVENTARIO</h1>
             <p class="card__text">Visualiza los Materiales</p>
-            <button onclick="window.location.href='ver_libros_prestados.php'" class="button">Ver Libros Prestados </button>
-
         </div>
         <!-- Información sobre el proyecto -->
         <section>
             <h1 class="title">Sistema de Inventario <span class="date"></span></h1>
 
 <!-- Barra de búsqueda -->
-<div class="search-container">
-    <form method="GET" action="">
-        <input type="text" name="search_client" id="search-client-input" placeholder="Buscar cliente...">
-        <button type="submit" id="search-client-button">
-            <i class="fas fa-search"></i>
-        </button>
-    </form>
-</div>
-<li>
-    <h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Prestar Libro</title>
+</head>
+<body>
+    <h1>Prestar Libro</h1>
 
-    </h1>
-</li>
+    <?php
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "inventario";
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    if ($conn->connect_error) {
+        die("La conexión falló: " . $conn->connect_error);
+    }
+
+    if (isset($_POST['select_client'])) {
+        $selected_client = $_POST['selected_client'];
+
+        // Obtener datos del cliente seleccionado
+        $sql_client = "SELECT * FROM clientes WHERE id=$selected_client";
+        $result_client = $conn->query($sql_client);
+        $row_client = $result_client->fetch_assoc();
+
+        echo "<h2>Cliente Seleccionado</h2>";
+        echo "<p>ID: " . $row_client['id'] . "</p>";
+        echo "<p>Nombre: " . $row_client['nombre'] . "</p>";
+        echo "<p>Apellido: " . $row_client['apellido'] . "</p>";
+
+        // Obtener lista de libros para el menú desplegable
+        $sql_books = "SELECT id, titulo FROM libros";
+        $result_books = $conn->query($sql_books);
+
+        echo "<h2>Seleccionar Libro para Prestar</h2>";
+        echo "<form method='POST' action='guardar_prestamo.php'>";
+        echo "<input type='hidden' name='selected_client' value='$selected_client'>";
+        echo "<select name='selected_book'>";
+        while ($row_book = $result_books->fetch_assoc()) {
+            echo "<option value='" . $row_book['id'] . "'>" . $row_book['titulo'] . "</option>";
+        }
+        echo "</select>";
+        echo "<button type='submit' name='prestar_libro'>Prestar</button>";
+        echo "</form>";
+    } else {
+        echo "No se ha seleccionado un cliente.";
+    }
+
+    $conn->close();
+    ?>
+
+</body>
+</html>
 
             <!-- TABLA DE CONTENIDO -->
-            <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "inventario";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("La conexión falló: " . $conn->connect_error);
-}
-
-// Verificar si se ha enviado una consulta de búsqueda de clientes
-if (isset($_GET['search_client'])) {
-    $search_client = $_GET['search_client'];
-    $sql_client = "SELECT * FROM clientes WHERE nombre LIKE '%$search_client%' LIMIT 3";
-    $result_client = $conn->query($sql_client);
-    
-    if ($result_client->num_rows > 0) {
-        echo "<table class='client-table'>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Seleccionar</th>
-                </tr>";
-        while ($row_client = $result_client->fetch_assoc()) {
-            $id_client = $row_client["id"];
-            $nombre_client = $row_client["nombre"];
-            $apellido_client = $row_client["apellido"];
-            
-            echo "<tr>
-                    <td>$id_client</td>
-                    <td>$nombre_client</td>
-                    <td>$apellido_client</td>
-                    <td>
-                        <form method='POST' action='prestar_libro.php'>
-                            <input type='hidden' name='selected_client' value='$id_client'>
-                            <button type='submit' name='select_client'>Seleccionar</button>
-                        </form>
-                    </td>
-                </tr>";
-        }
-        echo "</table>";
-    } else {
-        echo "No se encontraron clientes.";
-    }
-}
-
-$conn->close();
-?>
 
 
 

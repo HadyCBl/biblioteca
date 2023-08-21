@@ -161,7 +161,7 @@
 <div class="search-container">
     <form method="GET" action="">
         <input type="text" name="search" id="search-input" placeholder="Buscar...">
-        <button type="submit" id="search-button">
+        <button type="submit" id="search-client-button">
             <i class="fas fa-search"></i>
         </button>
     </form>
