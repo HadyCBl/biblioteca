@@ -148,7 +148,7 @@
     <!-- Encabezado con nombre del proyecto -->
     <div id="about" class="card">
       <h1 class="card__title">Registro</h1>
-      <p class="card__text">De Libros</p>
+      <p class="card__text">De clientes</p>
     </div>
     <!-- Información sobre el proyecto -->
     <section>
@@ -161,36 +161,36 @@
     
       <!-- tabla de ingreso de registro -->
 
-      <!-- ... Código HTML anterior ... -->
-
 <!-- tabla de ingreso de registro -->
-<form method="POST" action="guardar_producto.php">
-  <div>
-    <label for="titulo">Titulo del Libro:</label>
-    <input class="form__input" type="text" name="titulo" id="titulo" required>
-  </div>
-  <div>
-    <label for="autor">Autor:</label>
-    <input class="form__input" type="text" name="autor" id="autor" required>
-  </div>
- 
-  <div>
-    <label for="cantidad">Cantidad:</label>
-    <input class="form__input" type="number" name="cantidad" id="cantidad" required>
-  </div>
-
-  <div>
-    <li>
-          <h1></h1>
-    </li>
-    <center>
-    <input type="submit" value="Guardar" class="button">
-  </center>
-  <li><h1>
-
-  </h1></li>
-  </div>
-</form>
+<form method="POST" action="guardar_cliente.php">
+        <div>
+          <label for="nombre">Nombre:</label>
+          <input class="form__input" type="text" name="nombre" id="nombre" required>
+        </div>
+        <div>
+          <label for="segundo_n">Segundo Nombre:</label>
+          <input class="form__input" type="text" name="segundo_n" id="segundo_n" required>
+        </div>
+        <div>
+          <label for="apellido">Apellido:</label>
+          <input class="form__input" type="text" name="apellido" id="apellido" required>
+        </div>
+        <div>
+          <label for="segundo_a">Segundo Apellido:</label>
+          <input class="form__input" type="text" name="segundo_a" id="segundo_a" required>
+        </div>
+        <div>
+          <label for="direccion">Dirección:</label>
+          <input class="form__input" type="text" name="direccion" id="direccion" required>
+        </div>
+        <div>
+          <label for="fecha_n">Fecha de Nacimiento:</label>
+          <input class="form__input" type="date" name="fecha_n" id="fecha_n" required>
+        </div>
+        <div>
+          <input type="submit" value="Guardar" class="button">
+        </div>
+      </form>
 
 
 
