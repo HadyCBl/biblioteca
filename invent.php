@@ -75,7 +75,7 @@
                 </button>
             </li>
             <li class="sidebar__item">
-                <button class="sidebar__button sidebar__button--active" onclick="window.location.href='invent.html'">
+                <button class="sidebar__button sidebar__button--active" onclick="window.location.href='invent.php'">
                     <i class='bx bx-cog sidebar__icon'></i>
                     <span class="sidebar__text">Inventario</span>
                 </button>
@@ -183,26 +183,24 @@
         $search = isset($_GET['search']) ? $_GET['search'] : '';
         $whereClause = $search ? "WHERE nombre LIKE '%$search%'" : '';
 
-        $sql = "SELECT * FROM productos $whereClause";
+        $sql = "SELECT * FROM libros $whereClause";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
             echo "<table>";
             echo "<tr>";
             echo "<th>ID</th>";
-            echo "<th>Nombre</th>";
-            echo "<th>Descripción</th>";
+            echo "<th>titulo</th>";
+            echo "<th>autor</th>";
             echo "<th>Cantidad</th>";
-            echo "<th>Precio</th>";
             echo "<th>Acciones</th>";
             echo "</tr>";
             while ($row = $result->fetch_assoc()) {
                 echo "<tr>";
                 echo "<td>" . $row["id"] . "</td>";
-                echo "<td>" . $row["nombre"] . "</td>";
-                echo "<td> " . $row["descripcion"] . "</td>";
+                echo "<td>" . $row["titulo"] . "</td>";
+                echo "<td> " . $row["autor"] . "</td>";
                 echo "<td>" . $row["cantidad"] . "</td>";
-                echo "<td>Q. " . $row["precio"] . "</td>";
                 echo "<td>";
                 echo "<a href=\"delete.php?id=" . $row["id"] . "\" onclick=\"return confirm('¿Estás seguro de que deseas borrar este registro?')\">Eliminar</a>";
                 echo "<a href=\"update.php?id=" . $row["id"] . "\">/Actualizar</a>";

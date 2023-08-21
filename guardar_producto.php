@@ -12,11 +12,10 @@ if (!$conn) {
     // Obtener los datos ingresados en el formulario
     $titulo = $_POST["titulo"];
     $autor = $_POST["autor"];
-    $genero = $_POST["genero"];
     $cantidad = $_POST["cantidad"];
 
     // Consulta SQL para insertar los datos en la tabla "libros"
-    $sql = "INSERT INTO libros (titulo, autor, genero, cantidad) VALUES ('$titulo', '$autor', $genero, $cantidad)";
+    $sql = "INSERT INTO libros (titulo, autor,  cantidad) VALUES ('$titulo', '$autor',  $cantidad)";
 
     if (mysqli_query($conn, $sql)) {
         header("Location: RegistrarP.html");
