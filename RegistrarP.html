@@ -140,12 +140,12 @@
     <!-- Sección sobre el proyecto -->
     <!-- Encabezado con nombre del proyecto -->
     <div id="about" class="card">
-      <h1 class="card__title">INVENTARIO</h1>
-      <p class="card__text">Visualiza los Materiales</p>
+      <h1 class="card__title">Registro</h1>
+      <p class="card__text">De Libros</p>
     </div>
     <!-- Información sobre el proyecto -->
     <section>
-      <h1 class="title">Sobre el proyecto <span class="date">Termino: x de febrero 20XX</span></h1>
+      <h1 class="title"> <span class="date">Termino: x de febrero 20XX</span></h1>
       <p>
         
       </p>
@@ -159,21 +159,22 @@
 <!-- tabla de ingreso de registro -->
 <form method="POST" action="guardar_producto.php">
   <div>
-    <label for="nombre">Nombre:</label>
-    <input class="form__input" type="text" name="nombre" id="nombre" required>
+    <label for="titulo">Titulo del Libro:</label>
+    <input class="form__input" type="text" name="titulo" id="titulo" required>
   </div>
   <div>
-    <label for="descripcion">Descripción:</label>
-    <input class="form__input" type="text" name="descripcion" id="descripcion" required>
+    <label for="autor">Autor:</label>
+    <input class="form__input" type="text" name="autor" id="autor" required>
+  </div>
+  <div>
+    <label for="genero">Genero:</label>
+    <input class="form__input" type="text" name="genero" id="genero" required>
   </div>
   <div>
     <label for="cantidad">Cantidad:</label>
     <input class="form__input" type="number" name="cantidad" id="cantidad" required>
   </div>
-  <div>
-    <label for="precio">Precio:</label>
-    <input class="form__input" type="number" name="precio" id="precio" required>
-  </div>
+
   <div>
     <li>
           <h1></h1>
