@@ -156,70 +156,55 @@
         <section>
             <h1 class="title">Sistema de Inventario <span class="date"></span></h1>
 
-            <!-- Barra de búsqueda -->
             <div class="search-container">
-                <form method="GET" action="">
-                    <input type="text" name="search" id="search-input" placeholder="Buscar...">
-                    <button type="submit" id="search-button">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </form>
-            </div>
+    <form method="GET" action="">
+        <input type="text" name="search" id="search-input" placeholder="Buscar...">
+        <button type="submit" id="search-button">
+            <i class="fas fa-search"></i>
+        </button>
+    </form>
+</div>
 
             <!-- TABLA DE CONTENIDO -->
 
-            <?php
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "inventario";
+           <!-- Lista de clientes encontrados -->
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "inventario";
 
-            $conn = new mysqli($servername, $username, $password, $dbname);
-            if ($conn->connect_error) {
-                die("La conexión falló: " . $conn->connect_error);
-            }
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("La conexión falló: " . $conn->connect_error);
+}
 
-            // Verificar si se ha enviado una consulta de búsqueda
-            if (isset($_GET['search'])) {
-                $search = $_GET['search'];
-                $sql = "SELECT * FROM libros WHERE titulo LIKE '%$search%'";
-            } else {
-                $sql = "SELECT * FROM libros";
-            }
+// Verificar si se ha enviado una consulta de búsqueda de clientes
+if (isset($_GET['search_client'])) {
+    $search_client = $_GET['search_client'];
+    $sql_client = "SELECT * FROM clientes WHERE nombre LIKE '%$search_client%' LIMIT 3";
+    $result_client = $conn->query($sql_client);
+    
+    if ($result_client->num_rows > 0) {
+        echo "<form method='POST' action='actualizar_cliente.php'>";
+        echo "<select name='selected_client'>";
+        while ($row_client = $result_client->fetch_assoc()) {
+            $id_client = $row_client["id"];
+            $nombre_client = $row_client["nombre"];
+            $apellido_client = $row_client["apellido"];
+            
+            echo "<option value='$id_client'>$nombre_client $apellido_client</option>";
+        }
+        echo "</select>";
+        echo "<button type='submit' name='select_client'>Seleccionar</button>";
+        echo "</form>";
+    } else {
+        echo "No se encontraron clientes.";
+    }
+}
 
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-                echo "<table>
-                        <tr>
-                            <th>titulo</th>
-                            <th>autor</th>
-                            <th>Acción</th>
-                        </tr>";
-                // Salida de datos de cada fila
-                while ($row = $result->fetch_assoc()) {
-                    $id = $row["id"];
-                    $titulo = $row["titulo"];
-                    $cantidad = $row["cantidad"];
-
-                    echo "<tr>
-                            <td>$titulo</td>
-                            <td>$cantidad</td>
-                            <td>
-                                <form method='POST' action='actualizar_cantidad.php'>
-                                    <input type='hidden' name='id' value='$id'>
-                                    <input type='number' name='cantidad_nueva' placeholder='Ingrese la cantidad'>
-                                    <button type='submit' name='restar_cantidad'>Restar cantidad</button>
-                                </form>
-                            </td>
-                        </tr>";
-                }
-                echo "</table>";
-            } else {
-                echo "No se encontraron productos.";
-            }
-            $conn->close();
-            ?>
+$conn->close();
+?>
         </section>
     </main>
     <!-- Pie de página -->
