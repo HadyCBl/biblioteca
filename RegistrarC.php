@@ -12,7 +12,42 @@
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-*************" crossorigin="anonymous" />
 
+  <style>
+    .form__input {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      transition: border-color 0.3s ease;
+    }
+
+    .form__input:focus {
+      outline: none;
+      border-color: #0066ff;
+      box-shadow: 0 0 5px rgba(0, 102, 255, 0.3);
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 16px;
+      text-align: center;
+      text-decoration: none;
+      background-color: #0066ff;
+      color: #fff;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #0044cc;
+    }
+  </style>
 </head>
+
+
+
 
 <body>
   <!-- Sidebar -->
@@ -41,14 +76,21 @@
           <span class="sidebar__text">Registrar Producto</span>
         </button>
       </li>
+      <li class="sidebar__item">
+        <button class="sidebar__button sidebar__button--active" onclick="window.location.href='RegistrarC.html'">
+        <i class='bx bx-user-plus sidebar__icon'></i>
+            <span class="sidebar__text">Registrar Cliente</span>
+        </button>
+    </li>
+
     <li class="sidebar__item">
-      <button class="sidebar__button sidebar__button--active" onclick="window.location.href='invent.html'">
+      <button class="sidebar__button" onclick="window.location.href='invent.php'">
         <i class='bx bx-cog sidebar__icon'></i>
         <span class="sidebar__text">Inventario</span>
       </button>
     </li>
     <li class="sidebar__item">
-      <button class="sidebar__button" onclick="window.location.href='factura.html'">
+      <button class="sidebar__button" onclick="window.location.href='factura.php'">
         <i class='bx bx-mail-send sidebar__icon'></i>
         <span class="sidebar__text">Facturacion</span>
       </button>
@@ -105,35 +147,71 @@
     <!-- Sección sobre el proyecto -->
     <!-- Encabezado con nombre del proyecto -->
     <div id="about" class="card">
-      <h1 class="card__title">INVENTARIO</h1>
-      <p class="card__text">Visualiza los Materiales</p>
+      <h1 class="card__title">Registro</h1>
+      <p class="card__text">De Libros</p>
     </div>
     <!-- Información sobre el proyecto -->
     <section>
-      <h1 class="title">Sistema de Inventario <span class="date"></span></h1>
-   
-
-        <!-- TABLA DE CONTENIDO -->
-
-
+      <h1 class="title"> <span class="date">Termino: x de febrero 20XX</span></h1>
+      <p>
         
-
-        <!-- TABLA DE CONTENIDO -->
-
-      <li><h1>
-        <li><h1>
-
-        </h1></li>
-      </h1></li>
+      </p>
       <!-- Keywords -->
+      <h3>Ingresa los campos obligatorios</h3>
     
+      <!-- tabla de ingreso de registro -->
+
+      <!-- ... Código HTML anterior ... -->
+
+<!-- tabla de ingreso de registro -->
+<form method="POST" action="guardar_producto.php">
+  <div>
+    <label for="titulo">Titulo del Libro:</label>
+    <input class="form__input" type="text" name="titulo" id="titulo" required>
+  </div>
+  <div>
+    <label for="autor">Autor:</label>
+    <input class="form__input" type="text" name="autor" id="autor" required>
+  </div>
+ 
+  <div>
+    <label for="cantidad">Cantidad:</label>
+    <input class="form__input" type="number" name="cantidad" id="cantidad" required>
+  </div>
+
+  <div>
+    <li>
+          <h1></h1>
+    </li>
+    <center>
+    <input type="submit" value="Guardar" class="button">
+  </center>
+  <li><h1>
+
+  </h1></li>
+  </div>
+</form>
+
+
+
+
    
-   
-      
-        <!-- MySQL card -->
-    
+      <hr />
+    </section>
+
+
     <!-- Sección descargas -->
+    <section id="downloads">
+      <h2 class="title">REDES SOCIALES</h2>
+      <p>Lorem ipsum Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum</p>
+      <table class="table__downloads">
+      
+      
   
+       
+      </table>
+      <hr />
+    </section>
   </main>
   <!-- Pie de página -->
   <footer class="footer">
@@ -177,4 +255,7 @@
   <script type="text/javascript" src="assets/js/index.js"></script>
 </body>
 
+
+
 </html>
+
