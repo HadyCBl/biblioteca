@@ -74,7 +74,13 @@
                 </button>
             </li>
             <li class="sidebar__item">
-                <button class="sidebar__button " onclick="window.location.href='invent.html'">
+                <button class="sidebar__button " onclick="window.location.href='RegistrarC.php'">
+                <i class='bx bx-user-plus sidebar__icon'></i>
+                    <span class="sidebar__text">Registrar Cliente</span>
+                </button>
+            </li>
+            <li class="sidebar__item">
+                <button class="sidebar__button " onclick="window.location.href='invent.php'">
                     <i class='bx bx-cog sidebar__icon'></i>
                     <span class="sidebar__text">Inventario</span>
                 </button>
@@ -176,9 +182,9 @@
             // Verificar si se ha enviado una consulta de búsqueda
             if (isset($_GET['search'])) {
                 $search = $_GET['search'];
-                $sql = "SELECT * FROM productos WHERE nombre LIKE '%$search%'";
+                $sql = "SELECT * FROM libros WHERE titulo LIKE '%$search%'";
             } else {
-                $sql = "SELECT * FROM productos";
+                $sql = "SELECT * FROM libros";
             }
 
             $result = $conn->query($sql);
@@ -186,18 +192,18 @@
             if ($result->num_rows > 0) {
                 echo "<table>
                         <tr>
-                            <th>Producto</th>
-                            <th>Cantidad</th>
+                            <th>titulo</th>
+                            <th>autor</th>
                             <th>Acción</th>
                         </tr>";
                 // Salida de datos de cada fila
                 while ($row = $result->fetch_assoc()) {
                     $id = $row["id"];
-                    $nombre = $row["nombre"];
+                    $titulo = $row["titulo"];
                     $cantidad = $row["cantidad"];
 
                     echo "<tr>
-                            <td>$nombre</td>
+                            <td>$titulo</td>
                             <td>$cantidad</td>
                             <td>
                                 <form method='POST' action='actualizar_cantidad.php'>

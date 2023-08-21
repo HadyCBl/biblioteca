@@ -12,6 +12,7 @@ if (!$conn) {
     // Obtener los datos ingresados en el formulario
     $titulo = $_POST["titulo"];
     $autor = $_POST["autor"];
+
     $cantidad = $_POST["cantidad"];
 
     // Consulta SQL para insertar los datos en la tabla "libros"

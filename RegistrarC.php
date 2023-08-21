@@ -71,13 +71,13 @@
       </button>
     </li>
     <li class="sidebar__item">
-        <button class="sidebar__button sidebar__button--active" onclick="window.location.href='RegistrarP.html'">
+        <button class="sidebar__button " onclick="window.location.href='RegistrarP.html'">
           <i class='bx bxs-info-circle sidebar__icon'></i>
           <span class="sidebar__text">Registrar Producto</span>
         </button>
       </li>
       <li class="sidebar__item">
-        <button class="sidebar__button " onclick="window.location.href='RegistrarC.php'">
+        <button class="sidebar__button sidebar__button--active" onclick="window.location.href='RegistrarC.html'">
         <i class='bx bx-user-plus sidebar__icon'></i>
             <span class="sidebar__text">Registrar Cliente</span>
         </button>
@@ -193,7 +193,7 @@
 </form>
 
 
-<!-- ... Código HTML posterior ... -->
+
 
    
       <hr />

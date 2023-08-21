@@ -75,6 +75,12 @@
                 </button>
             </li>
             <li class="sidebar__item">
+                <button class="sidebar__button " onclick="window.location.href='RegistrarC.php'">
+                <i class='bx bx-user-plus sidebar__icon'></i>
+                    <span class="sidebar__text">Registrar Cliente</span>
+                </button>
+            </li>
+            <li class="sidebar__item">
                 <button class="sidebar__button sidebar__button--active" onclick="window.location.href='invent.php'">
                     <i class='bx bx-cog sidebar__icon'></i>
                     <span class="sidebar__text">Inventario</span>
