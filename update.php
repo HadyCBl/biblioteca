@@ -111,7 +111,7 @@ input[type="submit"]:hover {
       </button>
     </li>
     <li class="sidebar__item">
-      <button class="sidebar__button" onclick="window.location.href='factura.html'">
+      <button class="sidebar__button" onclick="window.location.href='factura.php'">
         <i class='bx bx-mail-send sidebar__icon'></i>
         <span class="sidebar__text">Facturacion</span>
       </button>

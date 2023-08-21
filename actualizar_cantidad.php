@@ -14,7 +14,7 @@ if (isset($_POST['restar_cantidad'])) {
     $cantidad_nueva = $_POST['cantidad_nueva'];
 
     // Obtener la cantidad actual del producto
-    $sql_select = "SELECT cantidad FROM productos WHERE id = $id";
+    $sql_select = "SELECT cantidad FROM libros WHERE id = $id";
     $result_select = $conn->query($sql_select);
 
     if ($result_select->num_rows > 0) {
@@ -26,7 +26,7 @@ if (isset($_POST['restar_cantidad'])) {
             $cantidad_restante = $cantidad_actual - $cantidad_nueva;
 
             // Actualizar la cantidad en la base de datos
-            $sql_update = "UPDATE productos SET cantidad = $cantidad_restante WHERE id = $id";
+            $sql_update = "UPDATE libros SET cantidad = $cantidad_restante WHERE id = $id";
             if ($conn->query($sql_update) === TRUE) {
                 // Redireccionar a la página principal después de la actualización
                 header("Location: factura.php");
