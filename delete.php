@@ -15,7 +15,7 @@ if (isset($_GET['id'])) {
     }
 
     // Consulta SQL para borrar el registro
-    $sql = "DELETE FROM productos WHERE id = $id";
+    $sql = "DELETE FROM libros WHERE id = $id";
 
     if ($conn->query($sql) === TRUE) {
         header("Location: invent.php");

@@ -181,7 +181,7 @@
 
         // Verificar si se ha enviado una consulta de búsqueda
         $search = isset($_GET['search']) ? $_GET['search'] : '';
-        $whereClause = $search ? "WHERE nombre LIKE '%$search%'" : '';
+        $whereClause = $search ? "WHERE titulo LIKE '%$search%'" : '';
 
         $sql = "SELECT * FROM libros $whereClause";
         $result = $conn->query($sql);

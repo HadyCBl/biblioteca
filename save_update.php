@@ -10,12 +10,11 @@ if ($conn->connect_error) {
 }
 
 $id = $_POST['id'];
-$nombre = $_POST['nombre'];
-$descripcion = $_POST['descripcion'];
+$titulo = $_POST['titulo'];
+$autor = $_POST['autor'];
 $cantidad = $_POST['cantidad'];
-$precio = $_POST['precio'];
 
-$sql = "UPDATE productos SET nombre='$nombre', descripcion='$descripcion', cantidad='$cantidad', precio='$precio' WHERE id=$id";
+$sql = "UPDATE libros SET titulo='$titulo', autor='$autor', cantidad='$cantidad' WHERE id=$id";
 if ($conn->query($sql) === TRUE) {
     header("Location: invent.php");
 } else {

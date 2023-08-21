@@ -202,28 +202,26 @@ if (isset($_GET['id'])) {
     }
 
     // Obtener los datos actuales del registro
-    $sql = "SELECT * FROM productos WHERE id = $id";
+    $sql = "SELECT * FROM libros WHERE id = $id";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        $nombre = $row["nombre"];
-        $descripcion = $row["descripcion"];
+        $titulo = $row["titulo"];
+        $autor = $row["autor"];
         $cantidad = $row["cantidad"];
-        $precio = $row["precio"];
 
         // Mostrar el formulario de actualización con los datos actuales
         ?>
         <form action="save_update.php" method="POST">
             <input type="hidden" name="id" value="<?php echo $id; ?>">
-            <label for="nombre">Nombre:</label>
-            <input type="text" name="nombre" value="<?php echo $nombre; ?>"><br>
-            <label for="descripcion">Descripción:</label>
-            <input type="text" name="descripcion" value="<?php echo $descripcion; ?>"><br>
+            <label for="titulo">Titulo:</label>
+            <input type="text" name="titulo" value="<?php echo $titulo; ?>"><br>
+            <label for="autor">Autor:</label>
+            <input type="text" name="autor" value="<?php echo $autor; ?>"><br>
             <label for="cantidad">Cantidad:</label>
             <input type="number" name="cantidad" value="<?php echo $cantidad; ?>"><br>
-            <label for="precio">Precio:</label>
-            <input type="text" name="precio" value="<?php echo $precio; ?>"><br>
+            
             <li>
                 <h1>
 
