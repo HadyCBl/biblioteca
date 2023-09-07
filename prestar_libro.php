@@ -44,6 +44,35 @@
   background-color: #2980b9;
 }
 
+
+
+   
+        .prestamo-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .book-select {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .prestar-button {
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .prestar-button:hover {
+            background-color: #0056b3;
+        }
+
         </style>
 </head>
 
@@ -155,7 +184,7 @@
         </div>
         <!-- Información sobre el proyecto -->
         <section>
-            <h1 class="title">Sistema de Inventario <span class="date"></span></h1>
+            <h1 class="title">Sistema de Invetario de Biblioteca <span class="date"></span></h1>
 
 <!-- Barra de búsqueda -->
 <!DOCTYPE html>
@@ -168,6 +197,15 @@
 <body>
     <h1>Prestar Libro</h1>
 
+
+    <table>
+    <tr>
+                    <th>ㅤID</th>
+                    <th>ㅤNombre</th>
+                    <th>Apellido</th>
+                    
+                </tr>
+
     <?php
     $servername = "localhost";
     $username = "root";
@@ -178,51 +216,52 @@
     if ($conn->connect_error) {
         die("La conexión falló: " . $conn->connect_error);
     }
-
-    if (isset($_POST['select_client'])) {
+    
+    
+     if (isset($_POST['select_client'])) {
         $selected_client = $_POST['selected_client'];
 
-        // Obtener datos del cliente seleccionado
+        // mostrar estos datos en una tabla
         $sql_client = "SELECT * FROM clientes WHERE id=$selected_client";
         $result_client = $conn->query($sql_client);
         $row_client = $result_client->fetch_assoc();
 
         echo "<h2>Cliente Seleccionado</h2>";
-        echo "<p>ID: " . $row_client['id'] . "</p>";
-        echo "<p>Nombre: " . $row_client['nombre'] . "</p>";
-        echo "<p>Apellido: " . $row_client['apellido'] . "</p>";
-
-        // Obtener lista de libros para el menú desplegable
-        $sql_books = "SELECT id, titulo FROM libros";
-        $result_books = $conn->query($sql_books);
-
-        echo "<h2>Seleccionar Libro para Prestar</h2>";
-        echo "<form method='POST' action='guardar_prestamo.php'>";
-        echo "<input type='hidden' name='selected_client' value='$selected_client'>";
-        echo "<select name='selected_book'>";
-        while ($row_book = $result_books->fetch_assoc()) {
-            echo "<option value='" . $row_book['id'] . "'>" . $row_book['titulo'] . "</option>";
-        }
-        echo "</select>";
-        echo "<button type='submit' name='prestar_libro'>Prestar</button>";
-        echo "</form>";
-    } else {
-        echo "No se ha seleccionado un cliente.";
+        echo "<table>";
+        echo "<tr>";
+        echo "<td>" . $row_client['id'] . "</td>";
+        echo "<td>" . $row_client['nombre'] . "</td>";
+        echo "<td>" . $row_client['apellido'] . "</td>";
+        echo "</tr>";
+        echo "</table>";
     }
+        ?>
 
-    $conn->close();
-    ?>
+ </table>
+
+
+ <?php
+// Obtener lista de libros para el menú desplegable
+$sql_books = "SELECT id, titulo FROM libros";
+$result_books = $conn->query($sql_books);
+
+
+echo "<h2 class='title'>Seleccionar Libro para Prestar</h2>";
+echo "<form class='prestamo-form' method='POST' action='guardar_prestamo.php'>";
+echo "<input type='hidden' name='selected_client' value='$selected_client'>";
+echo "<select class='book-select' name='selected_book'>";
+while ($row_book = $result_books->fetch_assoc()) {
+    echo "<option value='" . $row_book['id'] . "'>" . $row_book['titulo'] . "</option>";
+}
+echo "</select>";
+echo "<button class='prestar-button' type='submit' name='prestar_libro'>Prestar</button>";
+echo "</form>";
+echo "</div>";
+?>
+
 
 </body>
 </html>
-
-            <!-- TABLA DE CONTENIDO -->
-
-
-
-
-
-            <!-- TABLA DE CONTENIDO -->
 
             <li>
                 <h1>
@@ -288,7 +327,3 @@
 
 
 </html>
-
-
-
-

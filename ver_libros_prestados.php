@@ -12,39 +12,75 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
         integrity="sha512-*************" crossorigin="anonymous" />
 
-        <style>
-        .search-container {
-  display: flex;
-  align-items: center;
-}
+    <style>
+    .search-container {
+        display: flex;
+        align-items: center;
+    }
 
-#search-input {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-  margin-right: 5px; /* Ajusta el margen derecho según tu preferencia */
-}
+    #search-input {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        margin-right: 5px;
+        /* Ajusta el margen derecho según tu preferencia */
+    }
 
-#search-button {
+    #search-button {
 
-  align-items: center
-  justify-content: center;
-  padding: 10px;
-  background-color: #3498db;
-  border: none;
-  color: white;
-  cursor: pointer;
-  border-radius: 4px;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-}
+        align-items: center justify-content: center;
+        padding: 10px;
+        background-color: #3498db;
+        border: none;
+        color: white;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
 
-#search-button:hover {
-  background-color: #2980b9;
-}
+    #search-button:hover {
+        background-color: #2980b9;
+    }
+    .prestado-button {
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        padding: 5px 10px;
+        transition: background-color 0.3s ease;
+    }
 
-        </style>
+    /* Estilo para el botón "Devuelto" */
+    .devuelto-button {
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        padding: 5px 10px;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Estilo para los botones en estado hover */
+    .prestado-button:hover,
+    .devuelto-button:hover {
+        background-color: #0056b3;
+    }
+
+  /* Estilo predeterminado para la fecha de préstamo */
+  .fecha-prestamo {
+        color: black; /* Cambia esto al color predeterminado de tu elección */
+    }
+
+    /* Estilo para la fecha de préstamo si han pasado más de 30 días */
+    .fecha-prestamo.red {
+        color: red; /* Cambia esto al color rojo o al color de tu elección */
+    }
+
+    </style>
 </head>
 
 <body>
@@ -76,7 +112,7 @@
             </li>
             <li class="sidebar__item">
                 <button class="sidebar__button  " onclick="window.location.href='RegistrarC.php'">
-                <i class='bx bx-user-plus sidebar__icon'></i>
+                    <i class='bx bx-user-plus sidebar__icon'></i>
                     <span class="sidebar__text">Registrar Cliente</span>
                 </button>
             </li>
@@ -157,31 +193,32 @@
         <section>
             <h1 class="title">Sistema de Inventario <span class="date"></span></h1>
 
-<!-- Barra de búsqueda -->
-<div class="search-container">
-    <form method="GET" action="">
-        <input type="text" name="search" id="search-input" placeholder="Buscar...">
-        <button type="submit" id="search-client-button">
-            <i class="fas fa-search"></i>
-        </button>
-    </form>
-</div>
-<li>
-    <h1>
+            <!-- Barra de búsqueda -->
+            <div class="search-container">
+                <form method="GET" action="">
+                    <input type="text" name="search" id="search-input" placeholder="Buscar...">
+                    <button type="submit" id="search-client-button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+            </div>
+            <li>
+                <h1>
 
-    </h1>
-</li>
+                </h1>
+            </li>
 
             <!-- TABLA DE CONTENIDO -->
             <table>
-        <tr>
-            <th>ID</th>
-            <th>Nombre Cliente</th>
-            <th>Título del Libro</th>
-            <th>Fecha de Préstamo</th>
-            <th>Acciones</th>
-        </tr>
-         <?php
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre Cliente</th>
+                    <th>Título del Libro</th>
+                    <th>Fecha de Préstamo</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+                <?php
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -192,24 +229,31 @@ if ($conn->connect_error) {
     die("La conexión falló: " . $conn->connect_error);
 }
 
-$sql = "SELECT prestamos.id, clientes.nombre, prestamos.libro_titulo, prestamos.fecha_prestamo, prestamos.estado FROM prestamos
+$sql = "SELECT prestamos.id, clientes.nombre, prestamos.libro_titulo, prestamos.fecha_prestamo,                                                         
+                                                               prestamos.estado FROM prestamos
         INNER JOIN clientes ON prestamos.cliente_id = clientes.id";
 $result = $conn->query($sql);
 
+
 ?>
-
-<!-- ... Código HTML previo ... -->
-
-<table>
-   
-<?php
+                <!-- ... Código HTML previo ... -->
+                <table>
+                <?php
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
+        $claseEstiloFecha = ($row["estado"] == 0 && $diferenciaDias > 30) ? 'red' : '';
+        $fechaPrestamo = strtotime($row["fecha_prestamo"]);
+        $fechaActual = strtotime(date("Y-m-d"));
+        $diferenciaDias = floor(($fechaActual - $fechaPrestamo) / (60 * 60 * 24));
+
+        // Definir una variable para el estilo
+        $claseEstilo = ($diferenciaDias > 30) ? 'red' : '';
+
         echo "<tr>";
         echo "<td>" . $row["id"] . "</td>";
         echo "<td>" . $row["nombre"] . "</td>";
         echo "<td>" . $row["libro_titulo"] . "</td>";
-        echo "<td>" . $row["fecha_prestamo"] . "</td>";
+        echo "<td class='fecha-prestamo " . $claseEstilo . "'>" . $row["fecha_prestamo"] . "</td>";
         echo "<td>";
         if ($row["estado"] == 1) {
             echo "Devuelto";
@@ -219,30 +263,28 @@ if ($result->num_rows > 0) {
         echo "</td>";
         echo "<td>";
         if ($row["estado"] == 0) {
-            echo "<button class='action-button' onclick='markReturned(" . $row['id'] . ")'>Prestado</button>";
+            echo "<button class='action-button prestado-button' onclick='markReturned(" . $row['id'] . ")'>Prestado</button>";
         } else {
-            echo "<button class='action-button' onclick='redirectToUpdatedevuleto(" . $row['id'] . ")'>Devuelto</button>";
+            echo "<button class='action-button devuelto-button' onclick='redirectToUpdatedevuleto(" . $row['id'] . ")'>Devuelto</button>";
         }
         echo "</td>";
         echo "</tr>";
     }
-} else {
-    echo "<tr><td colspan='6'>No hay libros prestados.</td></tr>";
 }
 ?>
 
-<script>
-    function markReturned(prestamoId) {
-        // Redirigir a updatedevuleto.php
-        window.location.href = 'updatedevuleto.php?prestamo_id=' + prestamoId;
-    }
+                    <script>
+                    function markReturned(prestamoId) {
+                        // Redirigir a updatedevuleto.php
+                        window.location.href = 'updatedevuleto.php?prestamo_id=' + prestamoId;
+                    }
 
-    function redirectToUpdatedevuleto(prestamoId) {
-        // Redirigir a updatedevuleto.php con un query parameter
-        window.location.href = 'updatedevuleto.php?prestamo_id=' + prestamoId;
-    }
-</script>
-</table>
+                    function redirectToUpdatedevuleto(prestamoId) {
+                        // Redirigir a updatedevuleto.php con un query parameter
+                        window.location.href = 'updatedevuleto.php?prestamo_id=' + prestamoId;
+                    }
+                    </script>
+                </table>
 
     </main>
     <!-- Pie de página -->
@@ -278,9 +320,6 @@ if ($result->num_rows > 0) {
             </p>
         </div>
     </footer>
-
-
-
     <!-- Scripts -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script type="text/javascript" src="assets/js/index.js"></script>
@@ -290,7 +329,3 @@ if ($result->num_rows > 0) {
 
 
 </html>
-
-
-
-
